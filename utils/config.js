@@ -13,7 +13,7 @@ const devConfig = {
 
 
 const proConfig = {
-    connectionString: process.env.DATABASE_URL,
+    connectionString: process.ecdnv.DATABASE_URL,
     ssl: {
         rejectUnauthorized: false
     }
