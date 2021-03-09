@@ -13,14 +13,17 @@ const devConfig = {
 
 
 const proConfig = {
-    connectionString: process.ecdnv.DATABASE_URL,
+    connectionString: process.env.DATABASE_URL,
     ssl: {
         rejectUnauthorized: false
     }
 }
 
-const pool = new Pool(process.env.NODE_ENV === 'production' ? proConfig : devConfig);
 
+//change to this when ready to deploy
+// const pool = new Pool(process.env.NODE_ENV === 'production' ? proConfig : devConfig);
+
+const pool = new Pool(devConfig);
 
 module.exports = {
     PORT,

@@ -18,6 +18,8 @@
       z-index: 100;
       padding: 0 1.5rem;
       border-bottom: .5px solid #b4b4b42f;
+      overflow: hidden;
+      background-color: white;
 
   }
 
@@ -25,7 +27,7 @@
     /* height: 100%; */
     display: flex;
     align-items: center;
-    font-size: large;
+    font-size: 20px;
     font-weight:600;
     color: rgb(43, 81, 146);
 
@@ -36,8 +38,57 @@
   }
 
   .nav-links * {
-      margin-left: 25px;
+      margin-left: 10px;
   }
+
+  .search-bar{
+      height: 33px;
+  }
+
+  .search-bar input {
+      height: 33px;
+      width: 250px;
+      vertical-align: middle;
+      border: 1px solid rgb(201, 201, 201);
+      border-radius: 6% 0 0 6%;
+      box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.171);
+      padding: 10px;
+  }
+
+  .search-bar button{
+        height: 33px;
+        vertical-align: middle;
+        color: rgb(153, 153, 153);
+        background-color: white;
+        outline: none;
+        border: none;
+        cursor: pointer;
+        white-space: nowrap;
+        border-bottom: 1px solid rgb(201, 201, 201);
+        border-top: 1px solid rgb(201, 201, 201);
+        border-right: 1px solid rgb(201, 201, 201);
+        border-radius: 0% 6% 6% 0%;
+        box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.171);
+  }
+  .search-bar button *{
+    height: 19px;
+    margin-top: 3px;
+}
+
+
+
+.financial-page{
+    padding-top: 100px;
+    margin-left: 20px;
+    margin-right: 20px;
+
+}
+
+.graph-container{
+    padding: 40px;
+    width: 100%;
+    color: teal;
+}
 
   .hero {
       display: grid;
@@ -55,7 +106,7 @@
   }
 
   .hero p {
-      padding-bottom: 3rem;
+      padding-bottom: 2rem;
       font-size: clamp(1rem,2vw, 2rem);
       line-height: 1.5;
   }
