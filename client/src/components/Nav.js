@@ -3,30 +3,17 @@ import { AiOutlineStock } from 'react-icons/ai'
 import { FiSearch } from 'react-icons/fi'
 import { IconContext } from 'react-icons';
 import { Button } from './Button'
-import { useHistory, useParams } from "react-router-dom"
-import { useDispatch, useSelector } from 'react-redux'
-import stockServices from '../services/stockServices';
-import { foundStock } from '../reducers/stockReducer'
-
+import { useHistory } from "react-router-dom"
 
 
 function Nav() {
     let history = useHistory();
-    const dispatch = useDispatch();
     
     const onSubmit = (ev) => {
         ev.preventDefault();
         const content = ev.target[0].value;
         ev.target[0].value = '';
-        console.log(content)
-        history.push(`/financials/${content}`)
-        
-        //to be refactored - Nav component should not be fetching data.
-        const fetchData = async () => {
-            const stockData = await stockServices.getStockData(content);
-            dispatch(foundStock(stockData))
-        }
-        fetchData();
+        history.push(`/financials/${content}`);
 
     }
     

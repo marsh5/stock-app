@@ -1,30 +1,41 @@
 import React, {useEffect} from 'react'
-import { useParams} from "react-router-dom"
+import { useLocation, useHistory} from "react-router-dom"
 import { useDispatch, useSelector } from 'react-redux'
 import { foundStock } from '../reducers/stockReducer'
+import { tickerChange } from '../reducers/searchReducer'
 import stockServices from '../services/stockServices';
 import { Line } from 'react-chartjs-2';
 import Nav from './Nav'
 
 function FinancialPage() {
-    let {ticker} =  useParams();
     const dispatch = useDispatch();
+
+    let history = useHistory();
+    useLocation();
+    let ticker = history.location.pathname.split('/')[2];
+    let ticker2 = useSelector(state => state.search);
+
+    if(ticker !== ticker2){
+        dispatch(tickerChange(ticker))
+        //forces a rerender
+    }
+    console.log('state:', useSelector(state=> state));
     useEffect(() => {
         if (stock.length === 0){
-            console.log('BAD BOY BEING CALLED')
             const fetchData = async () => {
                 const stockData = await stockServices.getStockData(ticker);
-                dispatch(foundStock(stockData))
+                if(stockData.length !== 0){
+                    dispatch(foundStock(stockData))
+                }
+                
             }
             fetchData();
         }
-    }, [dispatch])
+    },)
     const stock = useSelector(state => state.stock);
-    console.log(stock)
-    console.log(!stock)
 
     const formatTitle = (str) => {
-        if(str.split('')[0] === "ALPHABET") return 'Alphabet (Google)'
+        if(str.split(' ')[0] === "Alphabet") return 'Alphabet (Google)'
         let title = str.toLowerCase().split(' ')
        .map((s) => s.charAt(0).toUpperCase() + s.substring(1)).join(' ');
        return title;
@@ -86,6 +97,7 @@ function FinancialPage() {
                 </ul>
                 </> :
                 <p>Company Not Found. Please search for another Company</p>}
+                <p>ticker = {ticker}</p>
             </div>
 
         </>
