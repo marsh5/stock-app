@@ -20,7 +20,7 @@ function Nav() {
         ev.preventDefault();
         const ticker = ev.target[0].value;
         ev.target[0].value = '';
-        if(ticker !== currentTicker){
+        if(ticker !== currentTicker && ticker !==''){
             dispatch(tickerChange(ticker))
         }
         let url = history.location.pathname;
