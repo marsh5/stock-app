@@ -1,4 +1,4 @@
-const searchReducer = (state = '', action) => {
+const searchReducer = (state = 'amzn', action) => {
 
     
     switch (action.type){

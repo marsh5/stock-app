@@ -10,7 +10,7 @@ function App() {
     <>
     <Router>
       <Switch>
-        <Route path="/financials/:ticker" >
+        <Route path="/financials/" >
           <FinancialPage />
         </Route>
         <Route>

@@ -33,6 +33,10 @@
 
   }
 
+  nav a {
+      text-decoration: none;
+  }
+
   .nav-links {
     display: flex;
   }
