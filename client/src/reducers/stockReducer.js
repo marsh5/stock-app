@@ -3,7 +3,7 @@ const stockReducer = (state = [], action) => {
         case 'FOUND_STOCK':
             return action.data
     default:
-        return []
+        return state
     }
 }
 

@@ -8,6 +8,7 @@ const getStockData = async (ticker) => {
         return response.data;
     } catch (error) {
         console.log(error)
+        return [];
     }
     
    

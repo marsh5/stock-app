@@ -11,6 +11,7 @@ financialsRouter.get('/:ticker', async (req,res) => {
         res.json(financials.rows);
     } catch (err) {
         console.error(err.message);
+        console.error('NOPE!')
     }
 })
 

@@ -7,6 +7,7 @@ import { useHistory } from "react-router-dom"
 import { useDispatch, useSelector } from 'react-redux'
 import { foundStock } from '../reducers/stockReducer'
 import { tickerChange } from '../reducers/searchReducer'
+import { isLoading } from '../reducers/loadingReducer'
 import stockServices from '../services/stockServices';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 
@@ -22,6 +23,7 @@ function Nav() {
         ev.target[0].value = '';
         if(ticker !== currentTicker && ticker !==''){
             dispatch(tickerChange(ticker))
+            dispatch(isLoading(true))
         }
         let url = history.location.pathname;
         if(url.substring(1, url.length - 1) !== 'financials'){

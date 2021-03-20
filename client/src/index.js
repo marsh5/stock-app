@@ -5,10 +5,12 @@ import { Provider } from 'react-redux'
 import App from './App';
 import stockReducer from './reducers/stockReducer';
 import searchReducer from './reducers/searchReducer'
+import loadingReducer from './reducers/loadingReducer'
 
 const reducer = combineReducers({
   stock: stockReducer,
-  search: searchReducer
+  search: searchReducer,
+  loading: loadingReducer
 })
 
 const store = createStore(reducer);

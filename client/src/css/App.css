@@ -80,6 +80,52 @@
 }
 
 
+.dropbtn {
+    background-color: #ffffff;
+    color: rgb(115, 115, 115);
+    /* padding: 8px 10px; */
+    height: 30px;
+    width: 100px;
+    font-size: 13px;
+    border: 1px solid rgb(187, 187, 187);
+    border-radius: 6% 0 0 6%;
+    cursor: pointer;
+    transition: all 0.3s ease-out;
+    border-radius: 4px;
+    box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.171);
+  }
+  
+  .dropbtn:hover, .dropbtn:focus {
+    opacity: .9;
+    outline: none;
+    transition: all 0.3s ease-out;
+  }
+  
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .dropdown-content {
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    overflow: auto;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    color: rgb(59, 59, 59);
+    padding: 2px 0 2px 0;
+    font-size: 14px;
+  }
+
+  .dropdown-content div{
+      padding: 0 5px 0 5px
+  }
+
+  .dropdown-content div:hover{
+      background-color: #e6e6e6;
+      cursor: default;
+  }
 
 .financial-page{
     padding-top: 100px;
@@ -88,10 +134,18 @@
 
 }
 
+.loading-container {
+    margin: 20px auto;
+    width: 10px;
+}
+
+.loading-container * {
+    /* margin: 100px; */
+}
+
 .graph-container{
     padding: 40px;
     width: 100%;
-    color: teal;
 }
 
   .hero {

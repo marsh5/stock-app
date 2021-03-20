@@ -1,43 +1,47 @@
 import React, {useState, useEffect} from 'react'
-import { useLocation, useHistory} from "react-router-dom"
 import { useDispatch, useSelector } from 'react-redux'
 import { foundStock } from '../reducers/stockReducer'
 import { tickerChange } from '../reducers/searchReducer'
+import { isLoading } from '../reducers/loadingReducer'
 import stockServices from '../services/stockServices';
 import { Line } from 'react-chartjs-2';
 import Nav from './Nav'
+import {ClipLoader} from 'react-spinners'
 
 function FinancialPage() {
     const [selections, setSelections] = useState(
         [
             true, true, false
-        ]
-        )
+        ])
+         //Revenue, Profit, Gross Margins
+    
     const [dropDown, setDropDown] = useState(false);
-
-        //Revenue, Profit, Gross Margins
 
         // for each selections, if true, then concat dataSetsArr. If false nothing.
 
     let finalArr = [];
-    console.log('FINALARRRRR', finalArr)
+    let state = useSelector(state => state);
+    console.log('STATE', state)
 
     
     const dispatch = useDispatch();
-    console.log('What')
-    console.log('state:', useSelector(state=> state));
 
     let ticker = useSelector(state => state.search)
-    console.log('state:', useSelector(state=> state));
+    let loadingData = useSelector(state => state.loading)
     useEffect(() => {
+        let mounted = true;
+        
         const fetchData = async () => {
             const stockData = await stockServices.getStockData(ticker);
-            console.log('STOCK DATA', stockData)
-            dispatch(foundStock(stockData))        
+            // setLoadingData(false);
+            if(mounted) {
+                dispatch(isLoading(false))
+                dispatch(foundStock(stockData))
+            }      
         }
         fetchData()
 
-
+        return () => mounted = false;
     },[ticker])
     const stock = useSelector(state => state.stock);
 
@@ -86,8 +90,6 @@ function FinancialPage() {
 
       //legend clicked
       const legendClickHandler = (e, legendItem) => {
-        console.log('EVENT', e)
-        console.log('legenditem', legendItem)
 
         let newArr = [...selections];
         switch(legendItem.text){
@@ -103,7 +105,7 @@ function FinancialPage() {
                 default:
                     break;
         }
-        console.log('newARR!!!!!!!!!!', newArr)
+
         setSelections(newArr)
       }
       
@@ -126,9 +128,11 @@ function FinancialPage() {
               }
         },
         scales: {
-          yAxes: [
+          yAxes: 
+          [
             {
                 id: 'first-y-axis',
+                display: (selections[0] || selections[1]),
                 ticks: {
                     beginAtZero: true,
                     callback: function(value, index, values) {
@@ -146,6 +150,7 @@ function FinancialPage() {
             },
             {
                 id: 'second-y-axis',
+                display: selections[2],
                 ticks: {
                         beginAtZero: true,
                         callback: function(value, index, values) {
@@ -153,7 +158,7 @@ function FinancialPage() {
                         }
                 },
                 gridLines: {
-                    display: false,
+                    display: !(selections[0] || selections[1]),
                 },
                 position: 'left'
             }
@@ -170,47 +175,51 @@ function FinancialPage() {
         },
       }
 
+      // array that holds each dataset. Selections array will get looped through and each element that is true based on the selections array will cause the element in the dataSetsBulk array to be pushed to the finalArr
       const dataSetsBulk = [
-        {
-          label: 'Revenue',
-          data: stock.map(el => el['Revenue']),
-          fill: false,
-          backgroundColor: 'rgb(255, 99, 132)',
-          borderColor: 'rgba(255, 99, 132, 0.2)',
-          yAxisID: 'first-y-axis'
-        },
-        {
-            label: 'Profit',
-            data: stock.map(el => el['Net Income']),
+            {
+            label: 'Revenue',
+            data: stock.map(el => el['Revenue']),
             fill: false,
-            backgroundColor: 'rgb(28, 115, 226)',
-            borderColor: 'rgba(28, 115, 226, 0.2)',
+            backgroundColor: 'rgb(255, 99, 132)',
+            borderColor: 'rgba(255, 99, 132, 0.2)',
             yAxisID: 'first-y-axis'
-        },
-        {
-          label: 'Gross Margin %',
-          data: stock.map(el => el['Gross Profit']/el['Revenue']),
-          fill: false,
-          backgroundColor: 'rgb(200, 200, 20)',
-          borderColor: 'rgba(200, 200, 20, 0.2)',
-          yAxisID: 'second-y-axis'
-      },
+            },
+            {
+                label: 'Profit',
+                data: stock.map(el => el['Net Income']),
+                fill: false,
+                backgroundColor: 'rgb(28, 115, 226)',
+                borderColor: 'rgba(28, 115, 226, 0.2)',
+                yAxisID: 'first-y-axis'
+            },
+            {
+            label: 'Gross Margin %',
+            data: stock.map(el => el['Gross Profit']/el['Revenue']),
+            fill: false,
+            backgroundColor: 'rgb(200, 200, 20)',
+            borderColor: 'rgba(200, 200, 20, 0.2)',
+            yAxisID: 'second-y-axis'
+            }
+        ]
 
-    ]
 
-   
+   //Based on selections array, create the final array of data to be displayed.
+  
     selections.forEach((el, i) => {
-        console.log('el', el)
         //if the selections element is true
         if(el) {
             //push the dataSetsBulk object to be displayed
             finalArr.push(dataSetsBulk[i])
-            
         }
-    })
+    })  
 
-    const handleSelection = (ev) => {
-        console.log('SELECTION', ev)
+    const handleSelection = (i) => {
+        let newArr = [...selections]
+        for(let j = 0; j < selections.length; j++){
+            if(i === j) newArr[i] = true;
+        }
+        setSelections(newArr);
     }
 
     const handleDropDown = () => {
@@ -219,41 +228,39 @@ function FinancialPage() {
 
     // Close the dropdown if the user clicks outside of it
     window.onclick = function(event) {
-        console.log('EVENIJEI', event.target.innerHTML)
-        console.log(event)
-        // if(event.target.innerHTML !== "DropDown"){
-        //     setDropDown(false)
-        // }
+        if(event.target.innerHTML.slice(0,8) !== buttonText && event.target.innerHTML !== "Revenue" && event.target.innerHTML !== "Profit" && event.target.innerHTML !== "Gross Margin %"){
+            setDropDown(false)
+        }
     }
 
-    console.log('finalArr',finalArr)
-   
- 
+    // for window.onclick function to select innerHTML
+    const buttonText = `Add Data`
+
     return (
         <>
             <Nav/>
             <div className="financial-page">
+           
+            {
+                loadingData ? 
+                <div className = "loading-container">
+                <ClipLoader color={'#2A5BAA'} size={48} />
+                </div>
+                
+                :<>
+
                 {stock.length !== 0 ? 
                 <>
                 <h2>{formatTitle(stock[0].name)}</h2>
 
                 <div className = "graph-container">
                     <div className="dropdown">
-                        {/* <form>
-                            <label>Add Metric</label>
-                            <select name="metrics" onChange={handleSelection} multiple>
-                                <option value="revenue">Revenue</option>
-                                <option value="profit">Net Income</option>
-                                <option value="grossMarginPercent">Gross Margin %</option>
-                            </select>
-                        </form> */}
-
-                        <button onClick={handleDropDown}>DropDown</button>
+                        <button className="dropbtn" onClick={handleDropDown}>Add Data &nbsp; &nbsp; &nbsp; {dropDown ? '▲' :'▼' }</button>
                         {dropDown ?
                             <div id="myDropDown" className="dropdown-content">
-                            <div onClick={()=> handleSelection(0)}>Revenue</div>
-                            <div onClick={() => handleSelection(1)}>Profit</div>
-                            <div onClick={() => handleSelection(2)}>Gross Margin %</div>
+                                <div onClick={()=> handleSelection(0)}>Revenue</div>
+                                <div onClick={() => handleSelection(1)}>Profit</div>
+                                <div onClick={() => handleSelection(2)}>Gross Margin %</div>
                             </div> 
                             : <></>  
                     }
@@ -270,8 +277,12 @@ function FinancialPage() {
                 </> :
                 <p>Company Not Found. Please search for another Company</p>}
                 <p>ticker = {ticker}</p>
-            </div>
 
+            </>
+            }
+            </div>
+         
+          
         </>
     )
 }
