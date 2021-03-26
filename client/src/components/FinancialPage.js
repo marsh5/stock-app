@@ -251,9 +251,11 @@ function FinancialPage() {
 
                 {stock.length !== 0 ? 
                 <>
-                <h2>{formatTitle(stock[0].name)}</h2>
+                
 
                 <div className = "graph-container">
+                <h2>{formatTitle(stock[0].name)}</h2>
+                <h4>{stock[0].sector}</h4>
                     <div className="dropdown">
                         <button className="dropbtn" onClick={handleDropDown}>Add Data &nbsp; &nbsp; &nbsp; {dropDown ? '▲' :'▼' }</button>
                         {dropDown ?
@@ -268,15 +270,8 @@ function FinancialPage() {
                     </div>
                     <Line data={data} options = {options} />
                 </div>
-                
-                <h3>Revenue:</h3>
-                <ul>
-                    {stock.map((el, i) => 
-                        <li key={el['SimFinId'] + i}>{el['Fiscal Year']} {el['Revenue']}</li>)} 
-                </ul>
                 </> :
                 <p>Company Not Found. Please search for another Company</p>}
-                <p>ticker = {ticker}</p>
 
             </>
             }

@@ -11,7 +11,6 @@ const getStockData = async (ticker) => {
         return [];
     }
     
-   
 }
 
 export default { getStockData }

@@ -144,8 +144,20 @@
 }
 
 .graph-container{
-    padding: 40px;
+    padding: 10px 40px 40px 40px;
     width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.graph-container h2{
+    margin-bottom: 5px;
+}
+
+.graph-container h4{
+    color: rgb(115, 115, 115);
+    margin-bottom: 25px;
+    font-weight: 400;
 }
 
   .hero {
