@@ -139,10 +139,6 @@
     width: 10px;
 }
 
-.loading-container * {
-    /* margin: 100px; */
-}
-
 .graph-container{
     padding: 10px 40px 40px 40px;
     width: 100%;
@@ -172,12 +168,12 @@
 
   .hero h1 {
       padding-bottom: 1rem;
-      font-size: clamp(1rem, 4vw, 4rem);
+      font-size: clamp(1.7rem, 4vw, 4rem);
   }
 
   .hero p {
       padding-bottom: 2rem;
-      font-size: clamp(1rem,2vw, 2rem);
+      font-size: clamp(.95rem,1vw, 2rem);
       line-height: 1.5;
   }
 
@@ -190,17 +186,41 @@
       align-items: flex-start;
       min-height: 700px;
       position: relative;
+      /* background-color: teal; */
   }
 
   .right-column {
         position: relative;
         /* border: 1px solid blue; */
         margin-right: 1rem;
+        /* background-color: red; */
   }
 
   #hero-logo-img{
       width: 100%;
   }
 
-  
+
+
+  @media screen and (max-width: 768px){
+    .hero {
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr 1fr
+    }
+
+
+  .left-column {
+    min-height: 300px;
+    align-items: center;
+    margin: 7rem 2rem 0rem 2rem;
+    text-align: center;
+    }
+
+    /* .left-column p{
+        padding-left: 2rem;
+        padding-right: 2rem;
+    } */
+
+
+}
 
