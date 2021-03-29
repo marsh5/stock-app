@@ -1,17 +1,13 @@
 import React, { useState } from 'react'
 import { AiOutlineStock } from 'react-icons/ai'
 import { FiSearch } from 'react-icons/fi'
-import { FaBars } from 'react-icons/fa'
-import { IconContext } from 'react-icons';
 import {AiOutlineHome, AiOutlineInfoCircle, AiOutlineLogin} from 'react-icons/ai'
 import {BsPencilSquare} from 'react-icons/bs'
 import { Button } from './Button'
 import { useHistory } from "react-router-dom"
 import { useDispatch, useSelector } from 'react-redux'
-import { foundStock } from '../reducers/stockReducer'
 import { tickerChange } from '../reducers/searchReducer'
 import { isLoading } from '../reducers/loadingReducer'
-import stockServices from '../services/stockServices';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 
 
@@ -41,9 +37,6 @@ function Nav() {
     }
     
     return (
-        <>
-         {/* <IconContext.Provider value={{size: 38}} > */}
-           
             <nav>
                 <Link to="/">
                 <div className="nav-logo">
@@ -72,17 +65,13 @@ function Nav() {
                             <ul>
                                 <li><AiOutlineHome className="menu-icons"/>Home</li>
                                 <li><AiOutlineInfoCircle className="menu-icons"/>About</li>
-                                <li><AiOutlineLogin className="menu-icons"/>Login</li>
+                                <li><AiOutlineLogin className="menu-icons"/>Log In</li>
                                 <li><BsPencilSquare className="menu-icons"/>Sign Up</li>
-                                
                             </ul>
                         </div>
                     </div>
                 </div>
             </nav>
-
-        {/* </IconContext.Provider> */}
-        </>
     )
 }
 
