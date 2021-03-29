@@ -1,7 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { AiOutlineStock } from 'react-icons/ai'
 import { FiSearch } from 'react-icons/fi'
+import { FaBars } from 'react-icons/fa'
 import { IconContext } from 'react-icons';
+import {AiOutlineHome, AiOutlineInfoCircle, AiOutlineLogin} from 'react-icons/ai'
+import {BsPencilSquare} from 'react-icons/bs'
 import { Button } from './Button'
 import { useHistory } from "react-router-dom"
 import { useDispatch, useSelector } from 'react-redux'
@@ -13,12 +16,15 @@ import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 
 
 function Nav() {
+    const [showMenu, setShowMenu] = useState(false)
+
     let history = useHistory();
     const dispatch = useDispatch();
     const currentTicker = useSelector(state => state.search);
     
     const onSubmit = (ev) => {
         ev.preventDefault();
+        setShowMenu(false)
         const ticker = ev.target[0].value;
         ev.target[0].value = '';
         if(ticker !== currentTicker && ticker !==''){
@@ -35,13 +41,14 @@ function Nav() {
     }
     
     return (
-        <IconContext.Provider value={{size: 38}} >
+        <>
+         {/* <IconContext.Provider value={{size: 38}} > */}
            
             <nav>
                 <Link to="/">
                 <div className="nav-logo">
-                    <AiOutlineStock />
-                    Finance Visualized
+                    <span id="logo"><AiOutlineStock /></span>
+                    <span className="logo-text">Finance Visualized</span>
                 </div>
                 </Link>
 
@@ -53,13 +60,29 @@ function Nav() {
                     
                 </div>
                 <div className="nav-links">
-                    <Button buttonStyle='btn--outline' buttonSize='btn--small'>Log In</Button>
-                    <Button buttonSize='btn--small' buttonColor='light--blue'>Sign Up</Button>
+                   
+                        <Button buttonStyle='btn--outline' buttonSize='btn--small'>Log In</Button>
+                        <Button buttonSize='btn--small' buttonColor='light--blue'>Sign Up</Button>
+                    <div className={showMenu ? "bars menu-on" : "bars"} onClick={() => {setShowMenu(!showMenu)}}><div></div></div>
                     
+                </div>
+                <div className = {showMenu ? "nav-menu menu-on" : "nav-menu"}>
+                    <div>
+                        <div>
+                            <ul>
+                                <li><AiOutlineHome className="menu-icons"/>Home</li>
+                                <li><AiOutlineInfoCircle className="menu-icons"/>About</li>
+                                <li><AiOutlineLogin className="menu-icons"/>Login</li>
+                                <li><BsPencilSquare className="menu-icons"/>Sign Up</li>
+                                
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </nav>
 
-        </IconContext.Provider>
+        {/* </IconContext.Provider> */}
+        </>
     )
 }
 

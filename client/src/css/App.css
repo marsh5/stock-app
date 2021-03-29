@@ -30,7 +30,11 @@
     font-size: 20px;
     font-weight:600;
     color: rgb(43, 81, 146);
+  }
 
+  .nav-logo #logo{
+      font-size: 34px;
+      margin-top: 10px;
   }
 
   nav a {
@@ -41,9 +45,28 @@
     display: flex;
   }
 
-  .nav-links * {
+  .nav-links Button {
       margin-left: 10px;
   }
+
+  .nav-links .bars{
+    display: none;
+  }
+
+  .nav-menu{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    visibility: hidden;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  
 
   .search-bar{
       height: 33px;
@@ -57,10 +80,12 @@
       border-radius: 6% 0 0 6%;
       box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.171);
       padding: 10px;
+      outline: none;
   }
 
   .search-bar button{
         height: 33px;
+        width: 33px;
         vertical-align: middle;
         color: rgb(153, 153, 153);
         background-color: white;
@@ -75,7 +100,8 @@
         box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.171);
   }
   .search-bar button *{
-    height: 19px;
+    /* height: 19px; */
+    font-size: 15px;
     margin-top: 3px;
 }
 
@@ -203,10 +229,139 @@
 
 
   @media screen and (max-width: 768px){
+    .nav-logo .logo-text{
+       display: none;
+      }
+    
+    
     .hero {
         grid-template-columns: 1fr;
         grid-template-rows: 1fr 1fr 1fr
     }
+
+    .nav-links Button {
+        display: none;
+    }
+
+    .nav-links .bars{
+        display: none;
+        width: 27px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+    .nav-links .bars:hover{
+        cursor: pointer;
+    }
+
+    .nav-links .bars > div{
+        position: relative;
+        flex: none;
+        width: 100%;
+        height: 2px;
+        background-color: rgb(43, 81, 146);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.4s;
+    }
+
+    .nav-links .bars > div::before,
+    .nav-links .bars > div::after{
+        content: '';
+        position: absolute;
+        z-index: 2;
+        top: -9px;
+        width: 100%;
+        height: 2px;
+        background-color: rgb(43, 81, 146);
+    }
+    
+    /* Moves Lines down */
+    .nav-links .bars > div::after{
+        top: 9px;
+    }
+
+    /* Toggler Animation */
+    .nav-links .bars.menu-on > div {
+        transform: rotate(135deg);
+    }
+
+    /* Turns lines into X */
+    .nav-links .bars.menu-on > div::before,
+    .nav-links .bars.menu-on > div::after{
+        top: 0;
+        transform: rotate(90deg);
+    }
+
+    /* Rotate on Hover When Checked */
+    .nav-links .bars.menu-on:hover > div {
+        transform: rotate(225deg);
+    }
+
+    .nav-menu{
+        position: fixed;
+        top: 80px;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        visibility: hidden;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+    
+      .nav-menu > div{
+        background-color: rgb(64, 95, 148);
+        width: 200vw;
+        height: 200vh;
+        display: flex;
+        flex: none;
+        align-items: center;
+        justify-content: center;
+        transform: translate(100%);
+        transition: all 0.4s ease;
+      }
+    
+      .nav-menu > div > div{
+            text-align: left;
+            max-width: 90vw;
+            max-height: 100vh;
+            margin-bottom: 7rem;
+      }
+    
+      .nav-menu ul{
+        list-style-type: none;
+        font-size: 1.3rem;
+        font-weight: 300;
+        color: white;
+      }
+    
+      .nav-menu ul li{
+          margin: 40px 0;
+          padding: 5px 0;
+      }
+
+      .nav-menu ul li:hover{
+        color: rgb(218, 218, 218);
+        cursor: pointer;
+    }
+
+    .nav-menu .menu-icons{
+        padding-top: 5px;
+    }
+
+      .nav-menu.menu-on{
+        visibility: visible;
+      }
+
+      .nav-menu.menu-on > div {
+        transform: translate(0,0);
+    }
+
 
 
   .left-column {
@@ -215,12 +370,6 @@
     margin: 7rem 2rem 0rem 2rem;
     text-align: center;
     }
-
-    /* .left-column p{
-        padding-left: 2rem;
-        padding-right: 2rem;
-    } */
-
 
 }
 
