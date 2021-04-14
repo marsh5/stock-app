@@ -135,6 +135,7 @@ function FinancialPage() {
                 display: (selections[0] || selections[1]),
                 ticks: {
                     beginAtZero: true,
+                    // maxTicksLimit: 4,
                     callback: function(value, index, values) {
                         return `$${Math.round(value).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`
                     }
@@ -153,6 +154,7 @@ function FinancialPage() {
                 display: selections[2],
                 ticks: {
                         beginAtZero: true,
+                        // maxTicksLimit: 4,
                         callback: function(value, index, values) {
                         return `${Math.round(value* 100)}%`
                         }
@@ -160,7 +162,7 @@ function FinancialPage() {
                 gridLines: {
                     display: !(selections[0] || selections[1]),
                 },
-                position: 'left'
+                position: 'right'
             }
            
           ],
@@ -170,6 +172,9 @@ function FinancialPage() {
                         display: true,
 
                     },
+                    ticks:{
+                        // maxTicksLimit: 4
+                    }
                 }
             ],
         },

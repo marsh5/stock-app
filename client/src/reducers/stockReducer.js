@@ -16,3 +16,4 @@ export const foundStock = (data) => {
 }
 
 export default stockReducer;
+
