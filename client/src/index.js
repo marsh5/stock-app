@@ -6,11 +6,13 @@ import App from './App';
 import stockReducer from './reducers/stockReducer';
 import searchReducer from './reducers/searchReducer'
 import loadingReducer from './reducers/loadingReducer'
+import authReducer from './reducers/authReducer'
 
 const reducer = combineReducers({
   stock: stockReducer,
   search: searchReducer,
-  loading: loadingReducer
+  loading: loadingReducer,
+  auth: authReducer
 })
 
 const store = createStore(reducer);
