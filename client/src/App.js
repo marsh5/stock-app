@@ -37,7 +37,6 @@ function App() {
 
   return (
     <>
-    <div>{auth ? 'TRUE' : 'FALSE'}</div>
     <Router>
       <Switch>
         <Route path="/financials/" >
