@@ -13,12 +13,15 @@
       justify-content: space-between;
       align-items: center;
       width: 100%;
+      max-width: 1400px;
       height: 80px;
       position: fixed;
-      z-index: 100;
+      z-index: 5;
       padding: 0 1.5rem;
       border-bottom: .5px solid #b4b4b42f;
       overflow: hidden;
+      left: 50%;
+      transform: translate(-50%, 0);
       background-color: white;
 
   }
@@ -65,6 +68,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 5;
   }
 
   .nav-menu > div{
@@ -253,6 +257,7 @@
     padding: 10px 40px 40px 40px;
     width: 100%;
     max-width: 1200px;
+    min-width: 600px;
     margin: 0 auto;
 }
 
@@ -274,6 +279,7 @@
       padding: 0rem calc((100vw - 1400px) / 2);
       position: relative;
       overflow-x: hidden;
+      z-index: 1;
   }
 
   .hero h1 {
@@ -285,6 +291,18 @@
       padding-bottom: 2rem;
       font-size: clamp(.95rem,1vw, 2rem);
       line-height: 1.5;
+  }
+
+  
+
+  .hero #account-link {
+      text-decoration: none;
+      color: rgb(43, 95, 155);
+      padding-top: 10px;
+  }
+
+  .hero .double-arrows {
+      transform: translate(0, .2rem);
   }
 
   .left-column {
@@ -383,6 +401,15 @@
     /* Rotate on Hover When Checked */
     .nav-links .bars.menu-on:hover > div {
         transform: rotate(225deg);
+    }
+    
+
+    .graph-container{
+        padding: 10px 0px 40px 0px;
+        width: 100%;
+        max-width: 1200px;
+        min-width: 400px;
+        margin: 0 auto;
     }
 
     

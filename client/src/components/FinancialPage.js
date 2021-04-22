@@ -1,11 +1,11 @@
 import React, {useState, useEffect} from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { foundStock } from '../reducers/stockReducer'
-import { tickerChange } from '../reducers/searchReducer'
 import { isLoading } from '../reducers/loadingReducer'
 import stockServices from '../services/stockServices';
 import { Line } from 'react-chartjs-2';
 import Nav from './Nav'
+import DisplayModal from './DisplayModal'
 import {ClipLoader} from 'react-spinners'
 
 function FinancialPage() {
@@ -281,6 +281,7 @@ function FinancialPage() {
             </>
             }
             </div>
+            <DisplayModal />
          
           
         </>

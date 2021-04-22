@@ -9,14 +9,14 @@ import { useHistory } from "react-router-dom"
 import { useDispatch, useSelector } from 'react-redux'
 import { tickerChange } from '../reducers/searchReducer'
 import { isLoading } from '../reducers/loadingReducer'
+import { modalDisplay } from '../reducers/modalReducer'
 import { isAuthenticated } from '../reducers/authReducer'
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import { toast } from "react-toastify";
 
 
 function Nav() {
     const [showMenu, setShowMenu] = useState(false)
-
-    console.log('showmenu', showMenu)
 
     let history = useHistory();
     const dispatch = useDispatch();
@@ -35,13 +35,23 @@ function Nav() {
         let url = history.location.pathname;
         if(url.substring(1, url.length - 1) !== 'financials'){
             history.push(`/financials/`);
-        }
-        
-        
+        }        
 
+    }
+
+    const handleModuleClick = (module) => {
+        dispatch(modalDisplay(module))
+    }
+
+    const logOut = () => {
+        localStorage.removeItem("token")
+        dispatch(isAuthenticated(false));
+        toast.success("Logged out succesfully!")
+        setShowMenu(false)
     }
     
     return (
+        <>
             <nav>
                 <Link to="/">
                 <div className="nav-logo">
@@ -62,15 +72,18 @@ function Nav() {
                     <div className="account" onClick={() => {setShowMenu(!showMenu)}}>
                         <FaUserCircle />
                     </div> : <>
-                    <Button buttonStyle='btn--outline' buttonSize='btn--small'>Log In</Button>
-                        <Button buttonSize='btn--small' buttonColor='light--blue'>Sign Up</Button>  
+                        <Button onClick={() => handleModuleClick('login')} buttonStyle='btn--outline' buttonSize='btn--small'>Log In</Button>
+                        <Button onClick={() => handleModuleClick('register')} buttonSize='btn--small' buttonColor='light--blue'>Sign Up</Button>  
                         <div className={showMenu ? "bars menu-on" : "bars"} onClick={() => {setShowMenu(!showMenu)}}><div></div></div></>}
                    
                         
                     
                     
                 </div>
-                <div className = {showMenu ? "nav-menu menu-on" : "nav-menu"}>
+                
+            </nav>
+
+            <div className = {showMenu ? "nav-menu menu-on" : "nav-menu"}>
                     <div>
                         <div>
                             <ul>
@@ -79,7 +92,7 @@ function Nav() {
                                 <li><AiOutlineHome className="menu-icons"/>Home</li>
                                 <li><AiOutlineUnorderedList className="menu-icons"/>My Stocks</li>
                                 <li><AiOutlineInfoCircle className="menu-icons"/>About</li>
-                                <li><AiOutlineLogout className="menu-icons"/>Logout</li>
+                                <li onClick ={logOut}><AiOutlineLogout className="menu-icons" />Logout</li>
                                 </>
                                 :
                                 <>
@@ -93,7 +106,8 @@ function Nav() {
                         </div>
                     </div>
                 </div>
-            </nav>
+
+            </>
     )
 }
 

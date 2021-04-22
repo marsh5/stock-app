@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
 import './css/App.css'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import Home from './components/Home'
@@ -6,6 +6,11 @@ import FinancialPage from './components/FinancialPage'
 import authServices from './services/authServices'
 import { useDispatch, useSelector } from 'react-redux'
 import { isAuthenticated } from './reducers/authReducer'
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+toast.configure()
 
 
 function App() {
@@ -15,8 +20,10 @@ function App() {
     const auth = useSelector(state => state.auth);
 
     async function isAuth(){
+      console.log('isauth being run')
         try {
           const response = await authServices.isVerify();
+          console.log('verify response', response)
           if(response === true){
             dispatch(isAuthenticated(true))
           } else{
