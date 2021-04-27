@@ -90,11 +90,12 @@
         margin-bottom: 7rem;
   }
 
-  .nav-menu ul{
+  .nav-menu ul, .nav-menu ul li *{
     list-style-type: none;
     font-size: 1.3rem;
     font-weight: 300;
     color: white;
+    text-decoration: none;
   }
 
   .nav-menu ul li{
@@ -102,7 +103,7 @@
       padding: 5px 0;
   }
 
-  .nav-menu ul li:hover{
+  .nav-menu ul li:hover, .nav-menu ul li *:hover{
     color: rgba(255, 255, 255, 0.829);
     cursor: pointer;
 }
@@ -287,6 +288,11 @@
       font-size: clamp(1.7rem, 4vw, 4rem);
   }
 
+  .hero h2{
+      padding-bottom: 1rem;
+      font-size: clamp(1.7rem, 3vw, 3rem);
+  }
+
   .hero p {
       padding-bottom: 2rem;
       font-size: clamp(.95rem,1vw, 2rem);
@@ -319,14 +325,25 @@
 
   .right-column {
         position: relative;
-        /* border: 1px solid blue; */
         margin-right: 1rem;
-        /* background-color: red; */
   }
 
   #hero-logo-img{
       width: 100%;
   }
+
+  #hero-logo-img2{
+    width: 90%;
+    padding-left: 40px;
+}
+
+  .about-container p{
+      padding-right: 15px;
+  }
+
+  .about-container .right-column2 {
+    position: relative;
+}
 
 
 
@@ -412,8 +429,9 @@
         margin: 0 auto;
     }
 
-    
-
+    .about-container p{
+        padding-right: 0px;
+    }
 
 
   .left-column {

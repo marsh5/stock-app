@@ -89,17 +89,23 @@ function Nav() {
                             <ul>
                                 {auth ? 
                                 <>
-                                <li><AiOutlineHome className="menu-icons"/>Home</li>
-                                <li><AiOutlineUnorderedList className="menu-icons"/>My Stocks</li>
-                                <li><AiOutlineInfoCircle className="menu-icons"/>About</li>
+                                <li onClick={() => {setShowMenu(!showMenu)}}><Link to="/"><AiOutlineHome className="menu-icons"/>Home</Link></li>
+                                <li onClick={() => {setShowMenu(!showMenu)}}><AiOutlineUnorderedList className="menu-icons"/>My Stocks</li>
+                                <li onClick={() => {setShowMenu(!showMenu)}}><Link to="/about"><AiOutlineInfoCircle className="menu-icons"/>About</Link></li>
                                 <li onClick ={logOut}><AiOutlineLogout className="menu-icons" />Logout</li>
                                 </>
                                 :
                                 <>
-                                <li><AiOutlineHome className="menu-icons"/>Home</li>
-                                <li><AiOutlineInfoCircle className="menu-icons"/>About</li>
-                                <li><AiOutlineLogin className="menu-icons"/>Log In</li>
-                                <li><BsPencilSquare className="menu-icons"/>Sign Up</li>
+                                <li onClick={() => {setShowMenu(!showMenu)}}><Link to="/"><AiOutlineHome className="menu-icons"/>Home</Link></li>
+                                <li onClick={() => {setShowMenu(!showMenu)}}><Link to="/about"><AiOutlineInfoCircle className="menu-icons"/>About</Link></li>
+                                <li onClick={() => {
+                                    // setShowMenu(!showMenu)
+                                    handleModuleClick('login')
+                                }}><AiOutlineLogin className="menu-icons"/>Log In</li>
+                                <li onClick={() => {
+                                    // setShowMenu(!showMenu)
+                                    handleModuleClick('register')
+                                }} ><BsPencilSquare className="menu-icons"/>Sign Up</li>
                                 </>}
                                 
                             </ul>

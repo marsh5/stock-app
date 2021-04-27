@@ -3,6 +3,7 @@ import './css/App.css'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import Home from './components/Home'
 import FinancialPage from './components/FinancialPage'
+import About from './components/About'
 import authServices from './services/authServices'
 import { useDispatch, useSelector } from 'react-redux'
 import { isAuthenticated } from './reducers/authReducer'
@@ -48,6 +49,9 @@ function App() {
       <Switch>
         <Route path="/financials/" >
           <FinancialPage />
+        </Route>
+        <Route path="/about">
+          <About />
         </Route>
         <Route>
           <Home path="/"/>
