@@ -27,7 +27,7 @@ function About() {
                 Simply search for a stock above or view your own customized portfolio below.
                 <span className="account-link">
                     <br></br>
-                     <Link id="account-link" to="/account">   View your stocks <HiChevronDoubleRight className="double-arrows"/></Link>
+                     <Link id="account-link" to="/portfolio">   View your stocks <HiChevronDoubleRight className="double-arrows"/></Link>
                 </span>
                 </p>
                 

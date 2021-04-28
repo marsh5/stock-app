@@ -5,6 +5,7 @@ const cors = require('cors')
 const pool = require('./utils/config').pool
 const financialsRouter = require('./controllers/financials');
 const authRouter = require('./controllers/jwtAuth');
+const portfolioRouter = require('./controllers/portfolio');
 
 app.use(cors())
 app.use(express.json());
@@ -24,5 +25,8 @@ app.use('/api/financials', financialsRouter)
 
 //authentication & authorization route
 app.use('/auth', authRouter);
+
+//portfolio page
+app.use('/portfolio', portfolioRouter)
 
 module.exports = app;

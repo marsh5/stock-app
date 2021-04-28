@@ -40,6 +40,7 @@ function Nav() {
     }
 
     const handleModuleClick = (module) => {
+        console.log('should be clicking')
         dispatch(modalDisplay(module))
     }
 
@@ -90,7 +91,7 @@ function Nav() {
                                 {auth ? 
                                 <>
                                 <li onClick={() => {setShowMenu(!showMenu)}}><Link to="/"><AiOutlineHome className="menu-icons"/>Home</Link></li>
-                                <li onClick={() => {setShowMenu(!showMenu)}}><AiOutlineUnorderedList className="menu-icons"/>My Stocks</li>
+                                <li onClick={() => {setShowMenu(!showMenu)}}><Link to="/portfolio"><AiOutlineUnorderedList className="menu-icons"/>My Stocks</Link></li>
                                 <li onClick={() => {setShowMenu(!showMenu)}}><Link to="/about"><AiOutlineInfoCircle className="menu-icons"/>About</Link></li>
                                 <li onClick ={logOut}><AiOutlineLogout className="menu-icons" />Logout</li>
                                 </>

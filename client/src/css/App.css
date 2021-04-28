@@ -122,25 +122,6 @@
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   
 
   .search-bar{
@@ -272,6 +253,8 @@
     font-weight: 400;
 }
 
+/* hero section */
+
   .hero {
       display: grid;
       grid-template-columns: 40% 65%;
@@ -343,6 +326,53 @@
 
   .about-container .right-column2 {
     position: relative;
+}
+
+.portfolio-container{
+    max-width: 1000px;
+    padding: 100px 1.5rem;
+    /* background-color: red; */
+    margin: 0 auto;
+    z-index: 1;
+}
+
+.portfolio-container2{
+    padding: 100px 1.5rem;
+    max-width: 1400px;
+    margin: 0 auto;
+    z-index: 1;
+}
+
+.portfolio-container h2{
+    margin: 0 0px 30px 0;
+}
+
+#portfolio-login{
+    color: rgb(43, 95, 155);
+}
+
+#portfolio-login:hover{
+    cursor: pointer;
+}
+
+table {
+    table-layout:auto;
+    width: 100%;
+    max-width: 1000px;
+    margin: auto;
+    border-collapse: collapse;
+}
+
+th{
+    font-size: 1.13rem;
+    font-weight: 600;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(201, 201, 201, 0.445);
+    text-align: left;
+}
+
+td{
+    padding-top: 8px;
 }
 
 
