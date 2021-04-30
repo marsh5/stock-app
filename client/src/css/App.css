@@ -250,6 +250,34 @@
     margin: 0 auto;
 }
 
+.graph-add{
+    font-size: 15px;
+    margin-left: 10px;
+    font-weight: normal;
+    color: rgb(43, 81, 146);
+}
+
+.graph-add:hover{
+    cursor: pointer;
+    color: rgb(53, 102, 187);
+}
+
+.graph-remove{
+    font-size: 15px;
+    margin-left: 10px;
+    font-weight: normal;
+    color: rgb(43, 81, 146);
+}
+
+.graph-remove:hover{
+    cursor: pointer;
+    color: rgb(255, 99, 132);
+}
+
+.graph-follow-icon{
+    transform: translate(-1px, 4px);
+}
+
 .graph-container h2{
     margin-bottom: 5px;
 }
@@ -275,7 +303,7 @@
 
   .hero h1 {
       padding-bottom: 1rem;
-      font-size: clamp(1.7rem, 4vw, 4rem);
+      font-size: clamp(1.7rem, 4vw, 3rem);
   }
 
   .hero h2{
@@ -480,7 +508,7 @@ td{
 
 }
 
-@media screen and (max-width: 500px){
+@media screen and (max-width: 480px){
 
     nav{
         padding: 0 .5rem;

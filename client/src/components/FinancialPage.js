@@ -3,31 +3,36 @@ import { useDispatch, useSelector } from 'react-redux'
 import { foundStock } from '../reducers/stockReducer'
 import { isLoading } from '../reducers/loadingReducer'
 import stockServices from '../services/stockServices';
+import portfolioServices from '../services/portfolioServices';
 import { Line } from 'react-chartjs-2';
+import { RiAddCircleFill, RiCloseCircleFill } from 'react-icons/ri'
 import Nav from './Nav'
 import DisplayModal from './DisplayModal'
 import {ClipLoader} from 'react-spinners'
+import { isAuthenticated } from '../reducers/authReducer'
 
 function FinancialPage() {
     const [selections, setSelections] = useState(
         [
-            true, true, false
+            true, true, false, false
         ])
-         //Revenue, Profit, Gross Margins
+         //Revenue, Profit, Net Profit %, Gross Margins %
     
     const [dropDown, setDropDown] = useState(false);
-
-        // for each selections, if true, then concat dataSetsArr. If false nothing.
+    const [isPartOfPortfolio, setIsPartOfPortfolio] = useState(false)
+    const [hoverText, setHoverText] = useState('Following')
 
     let finalArr = [];
-    let state = useSelector(state => state);
-    console.log('STATE', state)
+    // let state = useSelector(state => state);
+    // console.log('STATE', state)
 
     
     const dispatch = useDispatch();
 
     let ticker = useSelector(state => state.search)
     let loadingData = useSelector(state => state.loading)
+    let auth = useSelector(state => state.auth)
+
     useEffect(() => {
         let mounted = true;
         
@@ -43,6 +48,21 @@ function FinancialPage() {
 
         return () => mounted = false;
     },[ticker])
+
+    useEffect(() => {
+         //check if user has stock added to portfolio
+         const checkPortfolio = async () => {
+            if(auth){
+                const stockCheck = await portfolioServices.stockCheck(ticker.toUpperCase());
+                console.log('stockcheck', stockCheck.result)
+
+                setIsPartOfPortfolio(stockCheck.result)
+            }
+         }
+         checkPortfolio();
+    },[ticker,auth])
+
+
     const stock = useSelector(state => state.stock);
 
     const formatTitle = (str) => {
@@ -96,11 +116,14 @@ function FinancialPage() {
                 case "Revenue":
                     newArr[0] = false;
                     break;
-                case "Profit":
+                case "Net Income":
                     newArr[1] = false;
                     break;
-                case "Gross Margin %":
+                case "Profit Margin %":
                     newArr[2] = false;
+                    break;
+                case "Gross Margin %":
+                    newArr[3] = false;
                     break;
                 default:
                     break;
@@ -151,7 +174,7 @@ function FinancialPage() {
             },
             {
                 id: 'second-y-axis',
-                display: selections[2],
+                display: (selections[2] || selections[3]),
                 ticks: {
                         beginAtZero: true,
                         // maxTicksLimit: 4,
@@ -191,12 +214,20 @@ function FinancialPage() {
             yAxisID: 'first-y-axis'
             },
             {
-                label: 'Profit',
-                data: stock.map(el => el['Net Income']),
-                fill: false,
-                backgroundColor: 'rgb(28, 115, 226)',
-                borderColor: 'rgba(28, 115, 226, 0.2)',
-                yAxisID: 'first-y-axis'
+            label: 'Net Income',
+            data: stock.map(el => el['Net Income']),
+            fill: false,
+            backgroundColor: 'rgb(28, 115, 226)',
+            borderColor: 'rgba(28, 115, 226, 0.2)',
+            yAxisID: 'first-y-axis'
+            },
+            {
+            label: 'Profit Margin %',
+            data: stock.map(el => el['Net Income']/el['Revenue']),
+            fill: false,
+            backgroundColor: 'rgb(88, 184, 147)',
+            borderColor: 'rgba(88, 184, 147, 0.2)',
+            yAxisID: 'second-y-axis'
             },
             {
             label: 'Gross Margin %',
@@ -231,9 +262,13 @@ function FinancialPage() {
         setDropDown(!dropDown)
     }
 
+    const handleAddStock = () => {
+
+    }
+
     // Close the dropdown if the user clicks outside of it
     window.onclick = function(event) {
-        if(event.target.innerHTML.slice(0,8) !== buttonText && event.target.innerHTML !== "Revenue" && event.target.innerHTML !== "Profit" && event.target.innerHTML !== "Gross Margin %"){
+        if(event.target.innerHTML.slice(0,8) !== buttonText && event.target.innerHTML !== "Revenue" && event.target.innerHTML !== "Net Income" && event.target.innerHTML !== "Gross Margin %" && event.target.innerHTML !== "Profit Margin %"){
             setDropDown(false)
         }
     }
@@ -259,15 +294,28 @@ function FinancialPage() {
                 
 
                 <div className = "graph-container">
-                <h2>{formatTitle(stock[0].name)}</h2>
-                <h4>{stock[0].sector}</h4>
+                    <div className ="graph-header">
+                        <h2>{formatTitle(stock[0].name)}
+                        {auth 
+                        ?  <> {isPartOfPortfolio 
+                            ? <span onMouseOver={() => setHoverText('Unfollow')} onMouseLeave={()=> setHoverText('Following')} className="graph-remove">{hoverText} <RiCloseCircleFill className="graph-follow-icon"/> </span> 
+                            : <span className="graph-add">Add to Portfolio<RiAddCircleFill className="graph-follow-icon"/></span>  } 
+                        </>
+                        
+                        
+                        : <span></span> }
+                        </h2>
+                        
+                    </div>
+                    <h4>{stock[0].sector}</h4>
                     <div className="dropdown">
                         <button className="dropbtn" onClick={handleDropDown}>Add Data &nbsp; &nbsp; &nbsp; {dropDown ? '▲' :'▼' }</button>
                         {dropDown ?
                             <div id="myDropDown" className="dropdown-content">
                                 <div onClick={()=> handleSelection(0)}>Revenue</div>
-                                <div onClick={() => handleSelection(1)}>Profit</div>
-                                <div onClick={() => handleSelection(2)}>Gross Margin %</div>
+                                <div onClick={() => handleSelection(1)}>Net Income</div>
+                                <div onClick={() => handleSelection(2)}>Profit Margin %</div>
+                                <div onClick={() => handleSelection(3)}>Gross Margin %</div>
                             </div> 
                             : <></>  
                     }
@@ -275,6 +323,7 @@ function FinancialPage() {
                     </div>
                     <Line data={data} options = {options} />
                 </div>
+                
                 </> :
                 <p>Company Not Found. Please search for another Company</p>}
 
