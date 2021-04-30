@@ -8,6 +8,14 @@
     font-family: 'Lato', sans-serif;
   }
 
+  .nav-line{
+    border-bottom: .5px solid #b4b4b42f;
+    height: 81px;
+    width: 100%;
+    position: fixed;
+    z-index: 5;
+  }
+
   nav {
       display: flex;
       justify-content: space-between;
@@ -18,7 +26,6 @@
       position: fixed;
       z-index: 5;
       padding: 0 1.5rem;
-      border-bottom: .5px solid #b4b4b42f;
       overflow: hidden;
       left: 50%;
       transform: translate(-50%, 0);
@@ -359,14 +366,14 @@ table {
     table-layout:auto;
     width: 100%;
     max-width: 1000px;
-    margin: auto;
+    /* margin: auto; */
     border-collapse: collapse;
 }
 
 th{
     font-size: 1.13rem;
     font-weight: 600;
-    padding: 10px 0;
+    padding: 10px 7px 0 0;
     border-bottom: 1px solid rgba(201, 201, 201, 0.445);
     text-align: left;
 }
@@ -469,6 +476,19 @@ td{
     align-items: center;
     margin: 7rem 2rem 0rem 2rem;
     text-align: center;
+    }
+
+}
+
+@media screen and (max-width: 500px){
+
+    nav{
+        padding: 0 .5rem;
+    }
+
+    .search-bar input {
+        height: 33px;
+        width: 185px;
     }
 
 }

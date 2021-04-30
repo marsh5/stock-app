@@ -23,9 +23,19 @@ function Portfolio() {
             console.error('res-err',err.message)
         }
     }
-    const DisplayData = () =>{
-        if(data[0]){
-            if(data[0].ticker !==null){
+
+    const formatTitle = (str) => {
+        if(str.split(' ')[0] === "Alphabet") return 'Alphabet (Google)'
+        let title = str.toLowerCase().split(' ')
+       .map((s) => s.charAt(0).toUpperCase() + s.substring(1)).join(' ');
+       return title;
+       
+    }
+
+    const DisplayData = ({ info }) =>{
+        if(info[0]){
+            console.log('info', info)
+            if(info[0].ticker){
                 return (
                 <div>
                 <table>
@@ -38,9 +48,9 @@ function Portfolio() {
                         </tr>
                     </thead>
                     <tbody>
-                        {data.map(el => (
+                        {info.map(el => (
                            <tr key={`${el.name} ${el.user_name}`}>
-                               <td>{el.name}</td>
+                               <td>{formatTitle(el.name)}</td>
                                <td>{el.ticker}</td>
                                <td>{el.sector}</td>
                                <td className="remove-link">remove</td>
@@ -70,7 +80,7 @@ function Portfolio() {
             <div className="portfolio-container">
             <h2>My Portfolio</h2>
             <div className="portfolio-data">
-            <DisplayData />
+            <DisplayData info={data} />
             </div> 
             </div>
             </>

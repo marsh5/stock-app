@@ -53,6 +53,7 @@ function Nav() {
     
     return (
         <>
+        <div className="nav-line">
             <nav>
                 <Link to="/">
                 <div className="nav-logo">
@@ -82,7 +83,8 @@ function Nav() {
                     
                 </div>
                 
-            </nav>
+                </nav>
+            </div>
 
             <div className = {showMenu ? "nav-menu menu-on" : "nav-menu"}>
                     <div>
