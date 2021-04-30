@@ -7,7 +7,7 @@ import { modalDisplay } from '../reducers/modalReducer'
 
 function Portfolio() {
 
-    const [isUser, setIsUser] = useState("")
+    const [data, setData] = useState([])
     const dispatch = useDispatch();
 
     const auth = useSelector(state => state.auth);
@@ -16,18 +16,51 @@ function Portfolio() {
         try {
             const res = await portfolioServices.getPortfolio();
 
-            if(res.user_name){
-
-            }
+            console.log('res!!!!',res)
+            setData(res);
             
         } catch (err) {
             console.error('res-err',err.message)
         }
     }
+    const DisplayData = () =>{
+        if(data[0]){
+            if(data[0].ticker !==null){
+                return (
+                <div>
+                <table>
+                    <thead>
+                        <tr className="head">
+                            <th>Company Name</th>
+                            <th>Ticker</th>
+                            <th>Industry</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {data.map(el => (
+                           <tr key={`${el.name} ${el.user_name}`}>
+                               <td>{el.name}</td>
+                               <td>{el.ticker}</td>
+                               <td>{el.sector}</td>
+                               <td className="remove-link">remove</td>
+                           </tr> 
+                        )
+                        )}
+                    </tbody>
+                </table>
+                </div>)
+            } else{
+                return <div>You currently have no stocks in your portfolio. Search for a stock above and click "add" to begin creating your portfolio. </div>
+            }
+        }
+        return <></>
+    }
+    
 
     useEffect(() => {
         getUserData();
-    },[])
+    },[auth])
 
 
     return (
@@ -37,33 +70,7 @@ function Portfolio() {
             <div className="portfolio-container">
             <h2>My Portfolio</h2>
             <div className="portfolio-data">
-
-            <table>
-                <thead>
-                    <tr className="head">
-                        <th>Company Name</th>
-                        <th>Ticker</th>
-                        <th>Industry</th>
-                        <th>+-</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Apple</td>
-                        <td>AAPL</td>
-                        <td>Hardware</td>
-                        <td>Remove</td>
-                    </tr>
-                    <tr>
-                        <td>Google</td>
-                        <td>GOOG</td>
-                        <td>Tech</td>
-                        <td>Remove</td>
-                    </tr>
-
-                </tbody>
-            </table>
-
+            <DisplayData />
             </div> 
             </div>
             </>
