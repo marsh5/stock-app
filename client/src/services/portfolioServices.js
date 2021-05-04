@@ -1,4 +1,4 @@
-const baseUrl = 'http://localhost:3003/portfolio'
+const baseUrl = '/portfolio'
 
 const getPortfolio = async () => {
     try {

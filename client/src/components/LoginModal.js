@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Button } from './Button'
 import { MdClose } from 'react-icons/md'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { modalDisplay } from '../reducers/modalReducer'
 import authServices from '../services/authServices'
 import { toast } from 'react-toastify';
@@ -10,8 +10,6 @@ import '../css/Modal.css'
 
 function LoginModal() {
     const dispatch = useDispatch();
-
-    // const auth = useSelector(state => state.auth);
 
     const [inputs, setInputs] = useState({
         email: '',

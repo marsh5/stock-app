@@ -6,6 +6,7 @@ const pool = require('./utils/config').pool
 const financialsRouter = require('./controllers/financials');
 const authRouter = require('./controllers/jwtAuth');
 const portfolioRouter = require('./controllers/portfolio');
+const path = require("path");
 
 app.use(cors())
 app.use(express.json());
@@ -16,10 +17,6 @@ if(process.env.NODE_ENV === "production") {
     app.use(express.static("client/build"))
 }
 
-app.get('/', (req,res) => {
-    res.send('<h1>HEY WORLD!!</h1>')
-})
-
 //financial page route
 app.use('/api/financials', financialsRouter)
 
@@ -28,5 +25,10 @@ app.use('/auth', authRouter);
 
 //portfolio page
 app.use('/portfolio', portfolioRouter)
+
+app.get('*', function(req, res) {
+    res.sendFile('index.html', {root: path.join(__dirname, 'client/build')});
+  });
+
 
 module.exports = app;
