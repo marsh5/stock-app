@@ -9,7 +9,7 @@ import { RiAddCircleFill, RiCloseCircleFill } from 'react-icons/ri'
 import Nav from './Nav'
 import DisplayModal from './DisplayModal'
 import {ClipLoader} from 'react-spinners'
-import { isAuthenticated } from '../reducers/authReducer'
+import { toast } from "react-toastify";
 
 function FinancialPage() {
     const [selections, setSelections] = useState(
@@ -262,8 +262,21 @@ function FinancialPage() {
         setDropDown(!dropDown)
     }
 
-    const handleAddStock = () => {
+    const handleAddStock = async () => {
+        const res = await portfolioServices.addStock(ticker.toUpperCase());
+        if(res === ticker.toUpperCase()){
+            toast.success(`${ticker.toUpperCase()} added to your portfolio!`)
+            setIsPartOfPortfolio(true);
+        }
+    }
 
+    const handleRemoveStock = async () => {
+        console.log('Removing Stock!')
+        const res = await portfolioServices.removeStock(ticker.toUpperCase());
+        if(res === ticker.toUpperCase()){
+            toast.success(`${ticker.toUpperCase()} removed from your portfolio!`)
+            setIsPartOfPortfolio(false);
+        }
     }
 
     // Close the dropdown if the user clicks outside of it
@@ -298,8 +311,8 @@ function FinancialPage() {
                         <h2>{formatTitle(stock[0].name)}
                         {auth 
                         ?  <> {isPartOfPortfolio 
-                            ? <span onMouseOver={() => setHoverText('Unfollow')} onMouseLeave={()=> setHoverText('Following')} className="graph-remove">{hoverText} <RiCloseCircleFill className="graph-follow-icon"/> </span> 
-                            : <span className="graph-add">Add to Portfolio<RiAddCircleFill className="graph-follow-icon"/></span>  } 
+                            ? <span onClick={handleRemoveStock} onMouseOver={() => setHoverText('Unfollow')} onMouseLeave={()=> setHoverText('Following')} className="graph-remove">{hoverText} <RiCloseCircleFill className="graph-follow-icon"/> </span> 
+                            : <span onClick={handleAddStock} className="graph-add">Add to Portfolio <RiAddCircleFill className="graph-follow-icon"/></span>  } 
                         </>
                         
                         

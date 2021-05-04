@@ -57,4 +57,19 @@ portfolioRouter.post("/add", authorization, async (req,res) => {
     }
 })
 
+portfolioRouter.delete("/remove", authorization, async (req,res) => {
+    
+   //destructure body
+   const { ticker } = req.body;
+
+   try {
+       const removedItem = await pool.query("DELETE FROM favorites WHERE ticker = $1 AND user_id = $2 RETURNING *", [ticker, req.user]);
+       res.json(removedItem.rows[0].ticker)
+   } catch (err) {
+        console.error(err.message)
+        res.status(500).json("Server Error");
+   }
+
+})
+
 module.exports = portfolioRouter;
