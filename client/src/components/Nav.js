@@ -63,7 +63,7 @@ function Nav() {
 
                 <div className="search-bar">
                     <form onSubmit={onSubmit}>
-                    <input placeholder="Search company" />
+                    <input placeholder="Search ticker" />
                     <button type="submit" ><FiSearch /></button>
                     </form>
                     

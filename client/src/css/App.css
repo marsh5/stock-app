@@ -506,18 +506,13 @@ td{
     .nav-links .bars.menu-on:hover > div {
         transform: rotate(225deg);
     }
-    
-
-    .graph-container{
-        padding: 10px 0px 40px 0px;
-        width: 100%;
-        max-width: 1200px;
-        min-width: 400px;
-        margin: 0 auto;
-    }
 
     .about-container p{
         padding-right: 0px;
+    }
+
+    .graph-container{
+        padding: 10px 4px 40px 0px;
     }
 
 
