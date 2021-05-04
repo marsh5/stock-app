@@ -3,9 +3,15 @@ import portfolioServices from '../services/portfolioServices';
 import { useDispatch, useSelector } from 'react-redux'
 import Nav from './Nav'
 import DisplayModal from './DisplayModal';
+import { tickerChange } from '../reducers/searchReducer'
+import { isLoading } from '../reducers/loadingReducer'
 import { modalDisplay } from '../reducers/modalReducer'
+import { useHistory } from "react-router-dom"
+import { RiCloseCircleFill } from 'react-icons/ri'
 
 function Portfolio() {
+
+    let history = useHistory();
 
     const [data, setData] = useState([])
     const dispatch = useDispatch();
@@ -15,8 +21,6 @@ function Portfolio() {
     async function getUserData(){
         try {
             const res = await portfolioServices.getPortfolio();
-
-            console.log('res!!!!',res)
             setData(res);
             
         } catch (err) {
@@ -32,9 +36,25 @@ function Portfolio() {
        
     }
 
+    const handleCoClick = (ticker) => {
+        dispatch(tickerChange(ticker))
+        dispatch(isLoading(true))
+        history.push(`/financials/`);
+    }
+
+    const handleRemove = (ticker) => {
+        portfolioServices.removeStock(ticker);
+        const newArr = data.filter((el) => 
+            el.ticker !== ticker
+        )
+        if(newArr.length === 0){
+            newArr[0] = 1;
+        }
+        setData(newArr)
+    }
+
     const DisplayData = ({ info }) =>{
         if(info[0]){
-            console.log('info', info)
             if(info[0].ticker){
                 return (
                 <div>
@@ -50,10 +70,10 @@ function Portfolio() {
                     <tbody>
                         {info.map(el => (
                            <tr key={`${el.name} ${el.user_name}`}>
-                               <td>{formatTitle(el.name)}</td>
-                               <td>{el.ticker}</td>
+                               <td onClick={() => {handleCoClick(el.ticker)}}><span className="td-click">{formatTitle(el.name)}</span></td>
+                               <td onClick={() => {handleCoClick(el.ticker)}}><span className="td-click">{el.ticker}</span></td>
                                <td>{el.sector}</td>
-                               <td className="remove-link">remove</td>
+                               <td onClick={() => {handleRemove(el.ticker)}} className="remove-link"><span className="remove-link-x"><RiCloseCircleFill /></span><span className="remove-link-text">Unfollow</span> </td>
                            </tr> 
                         )
                         )}

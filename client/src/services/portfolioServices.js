@@ -14,7 +14,6 @@ const getPortfolio = async () => {
     } catch (err) {
         console.error(err.message)
         return err;
-        //return []
     }
 }
 
@@ -26,7 +25,6 @@ const stockCheck = async (ticker) => {
             ticker}
         })
         const parseRes = await res.json();
-        console.log('stockCheck response:', parseRes)
         return parseRes;
         
     } catch (err) {
@@ -45,7 +43,6 @@ const addStock = async (ticker) => {
             body: JSON.stringify({ticker})
         });
         const parseRes = await res.json();
-        console.log('parse', parseRes);
         return parseRes;
 
     } catch (err) {
@@ -61,7 +58,6 @@ const removeStock = async (ticker) => {
             body: JSON.stringify({ticker})
         });
         const parseRes = await res.json();
-        console.log('parse-delete', parseRes);
         return parseRes;
     } catch (err) {
         console.error(err.message)

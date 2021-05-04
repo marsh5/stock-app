@@ -410,6 +410,28 @@ td{
     padding-top: 8px;
 }
 
+.td-click:hover{
+    cursor: pointer;
+}
+
+.remove-link{
+    color: rgba(255, 0, 0, 0.5);
+    font-size: .8rem;
+    text-align: center;
+    transition: all .4s ease-in-out;
+}
+
+.remove-link:hover{
+    cursor: pointer;
+    color: rgba(255, 0, 0, 0.781);
+    transition: all .4s ease-in-out;
+}
+
+.remove-link-x{
+    position:absolute;
+    transform: translate(-15px, 1px);
+}
+
 
 
   @media screen and (max-width: 768px){
@@ -504,6 +526,31 @@ td{
     align-items: center;
     margin: 7rem 2rem 0rem 2rem;
     text-align: center;
+    }
+
+    table {
+        font-size: .8rem;
+    }
+
+    .remove-link-text{
+        display: none;
+    }
+    .remove-link-x{
+        font-size: 1rem;
+    }
+
+    .remove-link-x{
+        position:absolute;
+        transform: translate(0,-7px);
+    }
+
+    td{
+        padding-top: 8px;
+        padding-left: 8px;
+    }
+
+    th{
+        font-size: .95rem;
     }
 
 }

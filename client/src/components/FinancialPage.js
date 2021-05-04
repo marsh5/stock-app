@@ -23,9 +23,6 @@ function FinancialPage() {
     const [hoverText, setHoverText] = useState('Following')
 
     let finalArr = [];
-    // let state = useSelector(state => state);
-    // console.log('STATE', state)
-
     
     const dispatch = useDispatch();
 
@@ -38,7 +35,6 @@ function FinancialPage() {
         
         const fetchData = async () => {
             const stockData = await stockServices.getStockData(ticker);
-            // setLoadingData(false);
             if(mounted) {
                 dispatch(isLoading(false))
                 dispatch(foundStock(stockData))
@@ -54,7 +50,6 @@ function FinancialPage() {
          const checkPortfolio = async () => {
             if(auth){
                 const stockCheck = await portfolioServices.stockCheck(ticker.toUpperCase());
-                console.log('stockcheck', stockCheck.result)
 
                 setIsPartOfPortfolio(stockCheck.result)
             }
@@ -78,34 +73,6 @@ function FinancialPage() {
            return el['Fiscal Year']
         }) ,
         datasets: finalArr
-        // datasets: [
-        //   {
-        //     label: 'Revenue',
-        //     data: stock.map(el => el['Revenue']),
-        //     fill: false,
-        //     backgroundColor: 'rgb(255, 99, 132)',
-        //     borderColor: 'rgba(255, 99, 132, 0.2)',
-        //     yAxisID: 'first-y-axis'
-        //   },
-        //   {
-        //       label: 'Profit',
-        //       data: stock.map(el => el['Net Income']),
-        //       fill: false,
-        //       backgroundColor: 'rgb(28, 115, 226)',
-        //       borderColor: 'rgba(28, 115, 226, 0.2)',
-        //       yAxisID: 'first-y-axis'
-        //   },
-        //   {
-        //     label: 'Gross Margin %',
-        //     data: stock.map(el => el['Gross Profit']/el['Revenue']),
-        //     fill: false,
-        //     backgroundColor: 'rgb(200, 200, 20)',
-        //     borderColor: 'rgba(200, 200, 20, 0.2)',
-        //     yAxisID: 'second-y-axis'
-        // },
-
-
-        // ],
       }
 
       //legend clicked
@@ -271,7 +238,6 @@ function FinancialPage() {
     }
 
     const handleRemoveStock = async () => {
-        console.log('Removing Stock!')
         const res = await portfolioServices.removeStock(ticker.toUpperCase());
         if(res === ticker.toUpperCase()){
             toast.success(`${ticker.toUpperCase()} removed from your portfolio!`)

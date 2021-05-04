@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 import authServices from '../services/authServices'
 import '../css/Modal.css'
 
-function LoginModal() {
+function RegisterModal() {
     const dispatch = useDispatch();
 
     const [inputs, setInputs] = useState({
@@ -16,6 +16,8 @@ function LoginModal() {
         password: '',
         name: ''
     })
+
+    const [errMessage, setErrMessage] = useState('');
 
     const { email, password, name } = inputs;
 
@@ -26,22 +28,25 @@ function LoginModal() {
     const handleSubmit = async (ev) => {
         ev.preventDefault()
         const res = await authServices.postRegister(name, email, password)
-        console.log('res', res)
 
         if(res){
             if(res.token){
-                console.log('success')
                 toast.success("Registered Succesfully")
                 changeModuleDisplay('none')
                 dispatch(isAuthenticated(true))
                 localStorage.setItem("token", res.token)
-            } else{   
-                toast.error(res);
+            } else{
+                setErrMessage(res)
+                setTimeout(()=> {
+                    setErrMessage('')
+                }, 4000)
             }
             
         } else{
-            console.log('fail')
-            toast.error('Error with registering');
+            setErrMessage('Error With Registering')
+            setTimeout(()=> {
+                setErrMessage('')
+            }, 4000)
         }
     }
 
@@ -65,6 +70,8 @@ function LoginModal() {
                 <span className="x-button2" onClick={() => changeModuleDisplay('none')}><MdClose/></span>
                 <h2>Sign Up</h2>
                 <p>Already have an account? <span onClick={() => changeModuleDisplay('login')}className="module-link">Log In</span></p>
+
+                <div className="err-message">{errMessage}</div>
                
                 <form onSubmit={handleSubmit}>
                 <input type="text" name="name"
@@ -87,4 +94,4 @@ function LoginModal() {
     )
 }
 
-export default LoginModal
+export default RegisterModal

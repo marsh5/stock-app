@@ -18,6 +18,8 @@ function LoginModal() {
         password: ''
     })
 
+    const [errMessage, setErrMessage] = useState('');
+
     const { email, password } = inputs;
 
     const handleChange = e => {
@@ -27,21 +29,24 @@ function LoginModal() {
     const handleSubmit = async (ev) => {
         ev.preventDefault();
         const res = await authServices.postLogin(email, password)
-        console.log('res', res)
         if(res){
             if(res.token){
-                console.log('success')
                 toast.success("Logged in")
                 changeModuleDisplay('none')
                 dispatch(isAuthenticated(true))
                 localStorage.setItem("token", res.token)
-            } else{   
-                toast.error('Username or password is incorrect');
+            } else{
+                setErrMessage('Username or password is incorrect')
+                setTimeout(()=> {
+                    setErrMessage('')
+                  }, 4000)
             }
             
         } else{
-            console.log('fail')
-            toast.error('Username or password is incorrect');
+            setErrMessage('Username or password is incorrect')
+            setTimeout(()=> {
+                setErrMessage('')
+            }, 4000)
         }
         
     }
@@ -64,6 +69,8 @@ function LoginModal() {
                 <span className="x-button" onClick={() => changeModuleDisplay('none')}><MdClose/></span>
                 <h2>Log In</h2>
                 <p>Don't have an account? <span onClick={() => changeModuleDisplay('register')}className="module-link">Sign Up</span></p>
+
+                <div className="err-message">{errMessage}</div>
                
                 <form onSubmit={handleSubmit}>
                     <input type="email" name="email"

@@ -30,6 +30,11 @@
     align-items: center;
   }
 
+  .modal .err-message{
+    color: red;
+    font-size: .9rem;
+  }
+
   .modal .x-button{
       position: relative;
       left: 146px;

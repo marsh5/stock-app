@@ -40,14 +40,13 @@ function Nav() {
     }
 
     const handleModuleClick = (module) => {
-        console.log('should be clicking')
         dispatch(modalDisplay(module))
     }
 
     const logOut = () => {
         localStorage.removeItem("token")
         dispatch(isAuthenticated(false));
-        toast.success("Logged out succesfully!")
+        toast.success("Logged out!")
         setShowMenu(false)
     }
     
