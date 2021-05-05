@@ -522,6 +522,10 @@ td{
     text-align: center;
     }
 
+    .about-container .right-column2 {
+        margin-top: 45px;
+    }
+
     table {
         font-size: .8rem;
     }
