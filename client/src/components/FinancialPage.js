@@ -30,6 +30,14 @@ function FinancialPage() {
     let loadingData = useSelector(state => state.loading)
     let auth = useSelector(state => state.auth)
 
+
+
+    //display max ticks based on window size
+    const maxTicks = () => {
+        if(window.innerWidth < 500) return 6
+        return 20;
+    }
+
     useEffect(() => {
         let mounted = true;
         
@@ -125,9 +133,23 @@ function FinancialPage() {
                 display: (selections[0] || selections[1]),
                 ticks: {
                     beginAtZero: true,
-                    // maxTicksLimit: 4,
+                    maxTicksLimit: maxTicks(),
                     callback: function(value, index, values) {
-                        return `$${Math.round(value).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`
+                        if(value === 0) return '$0';
+                        
+                        if(values[0] > 1000000000){
+                            if(value > 1){
+                                return `$${(Math.round(value/100000000)/10).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} B`
+                            } else{
+                                return `-$${(Math.round(value/100000000)/10 * -1).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} B`
+                            }
+                        } else{
+                            if(value > 1){
+                                return `$${(Math.round(value/1000000)).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} M`
+                            } else{
+                                return `-$${(Math.round(value/1000000) * -1).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} M`
+                                }
+                        }
                     }
                 },
                 gridLines: {
@@ -300,7 +322,10 @@ function FinancialPage() {
                     }
                        
                     </div>
+                    <div className ="line-container">
                     <Line data={data} options = {options} />
+                    </div>
+                    
                 </div>
                 
                 </> :

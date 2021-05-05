@@ -15,7 +15,6 @@ const isVerify = async () => {
 
 
     } catch (err) {
-        console.log('isVerify error')
         console.error(err.message)
     }
     
@@ -50,9 +49,6 @@ const postRegister = async (name, email, password) => {
            });
 
         const parseRes = await response.json();
-
-
-        console.log('parseRes', parseRes)
         return parseRes;
 
     } catch (err) {

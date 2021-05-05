@@ -8,7 +8,6 @@ const stockReducer = (state = [], action) => {
 }
 
 export const foundStock = (data) => {
-    console.log('count')
     return {
         type: 'FOUND_STOCK',
         data

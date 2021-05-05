@@ -7,7 +7,7 @@ const getStockData = async (ticker) => {
         const response = await axios.get(`${baseUrl}/financials/${ticker}`);
         return response.data;
     } catch (error) {
-        console.log(error)
+        console.error(error)
         return [];
     }
     
