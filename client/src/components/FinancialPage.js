@@ -264,11 +264,15 @@ function FinancialPage() {
     }
 
     const handleRemoveStock = async () => {
+        console.log('handleRemoveStock clicked')
+        console.log('ticker:', ticker)
+        
         const res = await portfolioServices.removeStock(ticker.toUpperCase());
         if(res === ticker.toUpperCase()){
             toast.success(`${ticker.toUpperCase()} removed from your portfolio!`)
             setIsPartOfPortfolio(false);
         }
+        console.log('res', res);
     }
 
     // Close the dropdown if the user clicks outside of it
