@@ -252,33 +252,23 @@ function FinancialPage() {
     }
 
     const handleAddStock = async () => {
-        console.log('handleAddStock clicked')
-        console.log('ticker:', ticker)
         //for the rare instances a ticker has a space in it
-        let tick = ticker.split(" ").join("")
-        console.log('tick', tick)
+        const tick = ticker.split(" ").join("")
         const res = await portfolioServices.addStock(tick.toUpperCase());
         if(res === tick.toUpperCase()){
             toast.success(`${ticker.toUpperCase()} added to your portfolio!`)
             setIsPartOfPortfolio(true);
         }
-
-        console.log('res', res);
     }
 
     const handleRemoveStock = async () => {
-        console.log('handleRemoveStock clicked')
-        console.log('ticker:', ticker)
-
-        let tick = ticker.split(" ").join("")
-        console.log('tick', tick)
+        const tick = ticker.split(" ").join("")
         
         const res = await portfolioServices.removeStock(tick.toUpperCase());
         if(res === tick.toUpperCase()){
             toast.success(`${tick.toUpperCase()} removed from your portfolio!`)
             setIsPartOfPortfolio(false);
         }
-        console.log('res', res);
     }
 
     // Close the dropdown if the user clicks outside of it
