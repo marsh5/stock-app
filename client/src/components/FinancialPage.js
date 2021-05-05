@@ -252,11 +252,15 @@ function FinancialPage() {
     }
 
     const handleAddStock = async () => {
+        console.log('handleAddStock clicked')
+        console.log('ticker:', ticker)
         const res = await portfolioServices.addStock(ticker.toUpperCase());
         if(res === ticker.toUpperCase()){
             toast.success(`${ticker.toUpperCase()} added to your portfolio!`)
             setIsPartOfPortfolio(true);
         }
+
+        console.log('res', res);
     }
 
     const handleRemoveStock = async () => {
