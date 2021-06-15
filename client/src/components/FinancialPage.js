@@ -185,7 +185,6 @@ function FinancialPage() {
 
                     },
                     ticks:{
-                        // maxTicksLimit: 4
                     }
                 }
             ],
@@ -333,7 +332,7 @@ function FinancialPage() {
                 </div>
                 
                 </> :
-                <p>Company Not Found. Please search for another Company</p>}
+                <p>Company Not Found. Note that currently we only have ~50% of public companies available, but are working on adding more. Please search for another Company. </p>}
 
             </>
             }
